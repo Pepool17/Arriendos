@@ -9,7 +9,7 @@ def img_deuda(mes='total'):
 
     fig = plt.figure(figsize=(10,4))
     fig.set_facecolor('#f0f0f0')
-    bars =plt.barh(df_meses.index,df_meses['deuda'], height=0.8)
+    bars =plt.barh(df_meses.index.get_level_values(0),df_meses['deuda'], height=0.8)
     plt.title(titulo[0],fontsize=18, fontfamily='serif',  fontweight='bold', x = 0.4)
     plt.xlabel('Deuda en dólares', fontsize=10, fontfamily='serif')
     for bar in bars:

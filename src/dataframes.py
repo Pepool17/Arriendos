@@ -42,13 +42,13 @@ def deuda(mes='total'):
 
     if mes == 'total':
         deuda_total= df_deuda.loc[:, df_deuda.columns.get_level_values(1) == 'deuda'].sum(axis=1)
-        return pd.DataFrame(deuda_total.values, index=df_deuda.index.get_level_values(0), columns=['deuda'])
+        return pd.DataFrame(deuda_total.values, index=[df_deuda.index.get_level_values(2),df_deuda.index.get_level_values(0)], columns=['deuda'])
          
     df_deuda = df_deuda.loc[:,df_deuda.columns.get_level_values(0) == mes]
     pago = df_deuda[(mes,'pago')].tolist()
     deuda = df_deuda[(mes,'deuda')].tolist()
     precio = df_deuda.index.get_level_values(1)
     lista = list(zip(precio,pago,deuda))
-    df_deuda = pd.DataFrame(lista, index = df_deuda.index.get_level_values(0), columns=['precio', 'pago', 'deuda'])
+    df_deuda = pd.DataFrame(lista, index=[df_deuda.index.get_level_values(2),df_deuda.index.get_level_values(0)], columns=['precio', 'pago', 'deuda'])
     return df_deuda
 
