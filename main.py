@@ -4,5 +4,4 @@ import src.generar_informe as generar_informe
 #import dataframes
 
 if __name__ == '__main__':
-    create_image.img_deuda('ENE')
     generar_informe.informe()

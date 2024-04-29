@@ -1,16 +1,18 @@
 import src.dataframes as dataframes
 import matplotlib.pyplot as plt
+import datetime
+
 
 def img_deuda(mes='total'):
     titulo = [ 'DEUDA TOTAL' if mes=='total' else f'DEUDA {mes}']
     df_meses = dataframes.deuda(mes)
-    df_meses = df_meses[df_meses['deuda'] != 0]
+    #df_meses = df_meses[df_meses['deuda'] != 0]
     ancho_maximo = max(df_meses['deuda'])
 
-    fig = plt.figure(figsize=(10,4))
+    fig = plt.figure(figsize=(6,5))
     fig.set_facecolor('#f0f0f0')
     bars =plt.barh(df_meses.index.get_level_values(0),df_meses['deuda'], height=0.8)
-    plt.title(titulo[0],fontsize=18, fontfamily='serif',  fontweight='bold', x = 0.4)
+    plt.title(titulo[0],fontsize=18, fontfamily='serif',  fontweight='bold')
     plt.xlabel('Deuda en dólares', fontsize=10, fontfamily='serif')
     for bar in bars:
         ancho = bar.get_width()
@@ -18,3 +20,26 @@ def img_deuda(mes='total'):
     plt.xlim(0,ancho_maximo + (ancho_maximo/10))
     plt.savefig(f'imagenes\img_deuda_{mes}.png', bbox_inches='tight', dpi = 300)
     plt.close()
+
+
+def consutar_deuda():
+    import datetime
+    fecha_actual = datetime.datetime.now()
+    mes_actual = fecha_actual.month
+
+    meses = ['total']
+    img_deuda(meses[0])
+
+    meses_numeros = dataframes.meses_numeros()
+    for mes in meses_numeros:
+
+        if meses_numeros[mes] == mes_actual + 1:
+            return meses
+        
+        df = dataframes.deuda(mes)
+        if df['deuda'].agg(lambda x: sum(x)) != 0:
+            img_deuda(mes)
+            meses.append(mes)
+            
+    return meses
+    

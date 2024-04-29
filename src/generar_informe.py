@@ -1,4 +1,6 @@
 from fpdf import FPDF
+import datetime
+import src.create_image as create_image
 
 class PDFWithBackground(FPDF):
     def __init__(self):
@@ -24,22 +26,27 @@ class PDFWithBackground(FPDF):
 
 def informe():
     pdf = PDFWithBackground()
-    import datetime
     today = str(datetime.date.today())
+
     pdf.add_font('Ablation','', "fuente_FPDF/ablation.ttf", uni=True)
     pdf.set_background('imagenes/background.png')
+    meses = create_image.consutar_deuda()
+    
+    ancho_pagina = 210
+    margen = 30
+    ancho = ancho_pagina - (2*margen)
 
-    pdf.add_page()
-
-    pdf.set_y(46.1)
-    pdf.set_font('Courier',size=25)
-    pdf.cell(0,0,today,0,1,'C')
-
-    pdf.set_y(180)
-    pdf.set_font('Ablation',size=100)
-    pdf.cell(0,0,'TEST',0,1,'C')
-
-    pdf.image('imagenes/img_deuda_total.png', x=(210 - 160)/2, y = 65, w = 160)
+    for i in range(0,len(meses),4):
+        pdf.add_page()
+        pdf.set_y(46)
+        pdf.set_x(40)
+        pdf.set_font('Courier',size=14)
+        pdf.cell(0,0,f': {today}',0,1)
+        
+        pdf.image(f'imagenes/img_deuda_{meses[i]}.png', x=margen-6, y = 65, w = ancho/2 + 5)
+        pdf.image(f'imagenes/img_deuda_{meses[i+1]}.png', x=ancho_pagina-margen-(ancho/2)+2, y = 65, w = ancho/2 + 5)
+        pdf.image(f'imagenes/img_deuda_{meses[i+2]}.png', x=margen-6, y = 135, w = ancho/2 + 5)
+        pdf.image(f'imagenes/img_deuda_{meses[i+3]}.png', x=ancho_pagina-margen-(ancho/2)+2, y = 135, w = ancho/2 +5)
 
     pdf.output('informes_pdf/reporte_mensual.pdf')
         
