@@ -24,13 +24,13 @@ class PDFWithBackground(FPDF):
         self.cell(0, 10, 'Página ' + str(self.page_no()), 0, 0, 'C')
     
 
-def informe():
+def informe(df):
     pdf = PDFWithBackground()
     today = str(datetime.date.today())
 
     pdf.add_font('Ablation','', "fuente_FPDF/ablation.ttf", uni=True)
     pdf.set_background('imagenes/background.png')
-    meses = create_image.consutar_deuda()
+    meses = create_image.consutar_deuda(df)
     
     ancho_pagina = 210
     margen = 30

@@ -1,7 +1,8 @@
-import src.create_image as create_image
 import src.generar_informe as generar_informe
-#import src.conect_database as conect_database
-#import dataframes
+import src.conect_database as conect_database
 
 if __name__ == '__main__':
-    generar_informe.informe()
+    df = conect_database.read_data()    
+    generar_informe.informe(df)
+
+ 

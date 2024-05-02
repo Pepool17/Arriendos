@@ -3,13 +3,13 @@ import pandas as pd
 import src.conect_database as conect_database
 
 
-def meses_numeros():
+def meses_num():
     return {'ENE': 1, 'FEB': 2, 'MAR': 3, 'ABR': 4, 'MAY': 5, 'JUN': 6, 'JUL': 7, 'AGO': 8, 'SEP': 9, 'OCT': 10, 'NOV': 11, 'DIC': 12}
 
 
-def pagos():
-    meses_numeros = meses_numeros()
-    df = conect_database.read_data()
+def pagos(df):
+    meses_numeros = meses_num()
+    #df = conect_database.read_data()
     df['mes_numero'] = df['mes_pago'].map(meses_numeros)
 
     # Crea un dataframe para ver el nombre de los usuarios y sus pagos segun los meses
@@ -25,10 +25,10 @@ def pagos():
     return pivot_df    
 
 
-def deuda(mes='total'):
+def deuda(df_deuda, mes='total'):
     pd.options.mode.copy_on_write = True
-    df = conect_database.read_data()
-    df_deuda = df.copy()
+    #df = conect_database.read_data()
+    #df_deuda = df.copy()
     df_deuda['precio_pactado'] = df_deuda['precio_pactado'].astype(float)
     df_deuda['monto_pago'] = df_deuda['monto_pago'].astype(float)
     meses = df_deuda['mes_pago'].unique()
