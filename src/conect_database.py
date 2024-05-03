@@ -1,6 +1,8 @@
 import pandas as pd
 import psycopg2
+import streamlit as st
 
+@st.cache_data
 def read_data():
     try:
         conn = psycopg2.connect(

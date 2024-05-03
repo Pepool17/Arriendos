@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import datetime
 
 
-def img_deuda(df, mes='total'):
-    titulo = [ 'DEUDA TOTAL' if mes=='total' else f'DEUDA {mes}']
+def img_deuda(df, mes='TOTAL'):
+    titulo = [ 'DEUDA TOTAL' if mes=='TOTAL' else f'DEUDA {mes}']
     df_meses = dataframes.deuda(df, mes)
     #df_meses = df_meses[df_meses['deuda'] != 0]
     ancho_maximo = max(df_meses['deuda'])
@@ -27,7 +27,7 @@ def consutar_deuda(df):
     fecha_actual = datetime.datetime.now()
     mes_actual = fecha_actual.month
 
-    meses = ['total']
+    meses = ['TOTAL']
     img_deuda(df)
 
     meses_numeros = dataframes.meses_num()

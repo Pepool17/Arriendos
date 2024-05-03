@@ -1,0 +1,12 @@
+# Configuración de la interfaz de usuario
+[theme]
+primaryColor = "#FFB6C1"
+backgroundColor = "#F2F2F2"  
+secondaryBackgroundColor = "#ADD8E6" 
+textColor = "#483D8B"  
+font = "sans-serif"  # fuente sans-serif 
+
+
+# Configuración adicional
+[server]
+headless = false  # Ejecutar Streamlit con interfaz gráfica
